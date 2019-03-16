@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { FaUser } from "react-icons/fa";
+import Button from "react-bootstrap/Button";
 
 const NavigationBar = (props) => {
     return (
@@ -21,6 +23,9 @@ const NavigationBar = (props) => {
                     <Nav.Link href="#link">For You</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
+            <Button variant="none">
+                <FaUser/>
+            </Button>
         </Navbar>
     );
 };
