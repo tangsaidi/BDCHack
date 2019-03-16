@@ -10,7 +10,7 @@ class App extends Component {
 
     this.state = {
       dealership: {
-        name: "Give me Yo Money",
+        name: "Client",
         img: "http://img0.sm360.ca/images/web/centre-ville-vw/1814/vw-centreville-logo1515013234970.png"
       },
       route: "browse"
