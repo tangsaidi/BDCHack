@@ -6,26 +6,18 @@ import Nav from "react-bootstrap/Nav";
 
 class CarDetails extends Component {
     render() {
-        // const req = this.props.car_req;
-        const req = {
-            pending: false,
-            rejected: false,
-            fulfilled: true,
-            value: {
-                car_ext_photo_url1: "https://media.wired.com/photos/59bafdf204afdc5248726f5c/master/w_2400,c_limit/BMW-TA.jpg"
-            }
-        };
+        const req = this.props.car_req;
 
         if (req.pending)
             return <label>loading</label>;
-        else if (req.rejected)
+        else if (!req.fulfilled)
             return <label>{req.reason.message}</label>;
         else {
             const car = req.value;
             return (
                 <div>
                     <Row>
-                        <img width="100%" src={car.car_ext_photo_url1}/>
+                        <img width="100%" src={car.car_ext_photo_url1} alt="car"/>
                     </Row>
                     <Row>
                         <Col>
@@ -39,7 +31,7 @@ class CarDetails extends Component {
 }
 
 export default connect(props => ({
-    car_req: `0.0.0.0:5000/api/v1/car_info/${props.car_id}`
+    car_req: `http://0.0.0.0:5000/api/v1/car_info/${props.car_id}`
 }))(CarDetails);
 
 class Stats extends Component {
@@ -49,7 +41,6 @@ class Stats extends Component {
     }
 
     nav_change = (key) => {
-        console.log(key);
         this.setState({route: key});
     };
 

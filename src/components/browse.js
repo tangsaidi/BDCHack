@@ -22,11 +22,11 @@ export default class Browse extends Component {
     change_car = car_id => {
         this.setState({car_id: car_id});
 
-        const res = fetch(`0.0.0.0:5000/api/v1/log/01234567/${car_id}`).then();
+        const res = fetch(`http://0.0.0.0:5000/api/v1/log/01234567/${car_id}`).then();
+        console.log(res);
     };
 
     render() {
-        console.log(this.state.car_id);
         return (
             <div>
                 <Container>
@@ -40,7 +40,7 @@ export default class Browse extends Component {
                         <CarDetails car_id={this.state.car_id}/>
                     </Row>
                 </Container>
-                <Recommendations change_car={this.change_car}/>
+                <Recommendations change_car={this.change_car} car_id={this.state.car_id}/>
             </div>
         );
     }

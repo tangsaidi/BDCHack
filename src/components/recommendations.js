@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Button from "react-bootstrap/Button";
 import "./recommendations.css";
+import Card from "./recommendation_card";
 
 class Recommendations extends Component{
     constructor(props) {
@@ -8,39 +8,29 @@ class Recommendations extends Component{
         this.state = {
             loaded: false,
             error: false,
-            car_id_list: []
+            car_id_list: [5741337, 5764741, 5791398]
         };
     }
 
     refresh() {
-        const similar = fetch("0.0.0.0:5000/api/v1/similar/car_id").then(res => {
-            console.log(res);
-            if (!res.ok)
-                return {};
-            return res.json();
-        });
-        const list = Object.keys(similar);
-
-        this.setState({car_id_list: list});
+        fetch(`http://0.0.0.0:5000/api/v1/similar/${this.props.car_id}`)
+            .then(res => {
+                if (!res.ok)
+                    return {indices: []};
+                else
+                    return res.json();
+            })
+            .then(data => {
+                this.setState({car_id_list: data.indices});
+            });
     }
 
     componentDidMount() {
-        this.refresh();
+        // this.refresh();
     }
 
     render() {
-        const cards = this.state.car_id_list.map(id => {
-            return (
-                <div className="card card-body p-0" key={`${id}`}>
-                    <img height="40%" src="no.jpg"/>
-                    <div className="m-3">
-                        <h6>Car Name</h6>
-                        <p>descriptions</p>
-                        <Button variant="primary" onClick={() => this.props.change_car(id)}>See more</Button>
-                    </div>
-                </div>
-            );
-        });
+        const cards = this.state.car_id_list.map(id => <Card car_id={id} key={`${id}`}/>);
 
         return (
             <div className="m-5 text-left">
@@ -53,6 +43,6 @@ class Recommendations extends Component{
             </div>
         );
     }
-};
+}
 
 export default Recommendations;
