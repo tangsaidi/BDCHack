@@ -26,7 +26,7 @@ class Recommendations extends Component{
     }
 
     componentDidMount() {
-        // this.refresh();
+        this.refresh();
     }
 
     render() {
