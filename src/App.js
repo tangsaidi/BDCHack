@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NavigationBar from "./components/navigationbar";
+import "bootstrap/dist/css/bootstrap.css";
+import Browse from "./components/browse";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dealership: {
+        name: "Give me Yo Money",
+        img: "http://img0.sm360.ca/images/web/centre-ville-vw/1814/vw-centreville-logo1515013234970.png"
+      },
+      route: "browse"
+    };
+  }
+
   render() {
+    let page;
+    switch (this.state.route) {
+      case "browse":
+        page = <Browse/>;
+        break;
+      default:
+        page = <h1>no route</h1>;
+        break;
+    }
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <NavigationBar dealership={this.state.dealership}/>
+        {page}
       </div>
     );
   }
